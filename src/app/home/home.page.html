@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <swiper-container
+  pagination="true"
+  loop="true"
+  slides-per-view="1"
+  >
+  <swiper-slide *ngFor="let genre of genres">
+    <div class="slide-content">
+      <h2>{{ genre.title }}</h2>
+      <img [src]="genre.image" [alt]="genre.title">
+      <p>{{ genre.description }}</p>
+    </div>
+  </swiper-slide>
+</swiper-container>
+<div [style.background-color]="colorActual">
+  Hola mundo
+</div>
+<ion-button (click)="cambiarColor()">
+  Cambia de tema
+</ion-button>
+<ion-card class="bg-card-test">
+  <ion-card-header>
+    <ion-card-title>Card Title</ion-card-title>
+    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    Here's a small text description for the card content. Nothing more, nothing less.
+  </ion-card-content>
+</ion-card>
+
+<!-- Demo de Storage -->
+ <div>
+    <h3>Demo Ionic Storage</h3>
+    <div [style.background-color]="colorActual">
+      <p>Team Actual: {{ colorActual === colorOscuro ? 'Oscuro' : 'Claro'}}</p>
+    </div>
+ </div>
+
+ <div>
+    <ion-button (click)="cambiarColor()">Cambiar Team y Guardar</ion-button>
+ </div>
+
+ <div>
+  <p class="ion-text-center ion-text-uppercase">Texto Centrado</p>
+  <p class="ion-text-left ion-text-lowercase">TEXTO A LA IZQUIERDA</p>
+  <p class="ion-text-right ion-text-capitalize">texto a la derecha</p>
+  <p class="ion-hide">Hola no me veo</p>
+  <p class="d-block ion-margin ion-padding">Yo si me veo</p>
+ </div>
+ <ion-grid>
+  <ion-row>
+    <ion-col class="ion-align-self-start">
+      <div>1 of 4</div>
+    </ion-col>
+    <ion-col class="ion-align-self-center">
+      <div>2 of 4</div>
+    </ion-col>
+    <ion-col class="ion-align-self-end">
+      <div>3 of 4</div>
+    </ion-col>
+    <ion-col>
+      <div>4 of 4 # # #</div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

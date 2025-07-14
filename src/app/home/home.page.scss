@@ -1,0 +1,33 @@
+.slide-content {
+  text-align: center;
+  padding: 10px;
+}
+
+.slide-content img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  margin: 10% 0;
+}
+
+.slide-content h2 {
+  margin: 0;
+  font-size: 25px;
+  color: #f2ce05;
+}
+
+.slide-content p {
+  font-size: 20px;
+  color: #fff;
+  text-align: justify;
+}
+
+.card {
+  padding: var(--espaciado-base);
+  background-color: var(--color-claro);
+}
+
+.bg-card-test {
+  background: #f44ff4;
+}

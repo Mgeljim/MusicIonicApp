@@ -25,13 +25,245 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* Estilos globales personalizados para MusicApp */
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+// Variables globales
+:root {
+  --color-claro: #f8f9fa;
+  --color-oscuro: #2d2d2d;
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+// Estilos base para la aplicación
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+}
+
+// Estilos para botones globales
+ion-button {
+  --border-radius: 12px;
+  font-weight: 500;
+  text-transform: none;
+  
+  &.button-large {
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-size: 1.1rem;
+  }
+}
+
+// Estilos para cards globales
+ion-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Estilos para headers globales
+ion-header {
+  ion-toolbar {
+    --min-height: 60px;
+    
+    ion-title {
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// Utilidades CSS personalizadas
+.text-gradient {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-primary {
+  background: var(--primary-gradient);
+}
+
+.bg-gradient-secondary {
+  background: var(--secondary-gradient);
+}
+
+.shadow-soft {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-medium {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.border-radius-sm {
+  border-radius: 8px;
+}
+
+.border-radius-md {
+  border-radius: 12px;
+}
+
+.border-radius-lg {
+  border-radius: 16px;
+}
+
+.border-radius-xl {
+  border-radius: 24px;
+}
+
+// Animaciones globales
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+// Estilos para formularios
+ion-input,
+ion-textarea,
+ion-select {
+  --border-radius: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+// Estilos responsivos globales
+@media (min-width: 768px) {
+  ion-content {
+    --padding-start: 20px;
+    --padding-end: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  ion-content {
+    --padding-start: 40px;
+    --padding-end: 40px;
+  }
+}
+
+// Estilos para el modo oscuro
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-claro: #1a1a1a;
+    --color-oscuro: #f8f9fa;
+  }
+}
+
+// Estilos para swiper global
+swiper-container {
+  --swiper-pagination-color: var(--ion-color-primary);
+  --swiper-pagination-bullet-inactive-color: var(--ion-color-medium);
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+}
+
+// Estilos para iconos
+ion-icon {
+  &.icon-large {
+    font-size: 2rem;
+  }
+  
+  &.icon-xl {
+    font-size: 3rem;
+  }
+}
+
+// Clases de utilidad adicionales
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Estilos para loading
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+// Estilos para mensajes de error
+.error-message {
+  color: var(--ion-color-danger);
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+// Estilos para mensajes de éxito
+.success-message {
+  color: var(--ion-color-success);
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+

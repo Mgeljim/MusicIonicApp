@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular'
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { StorageService } from '../services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,19 +13,35 @@ import { StorageService } from '../services/storage.service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage implements OnInit {
-  colorClaro = 'var(--color-claro)';
-  colorOscuro = 'var(--color-oscuro';
-  colorActual = this.colorOscuro;
-  //[Tarea]: agregar informacion de minino 3 slides para mostrar en la vista
-  //[Tarea]: cambiar mediante el click de un boton el tema (color) de los slides.
+  colorClaro = '#ffffff';
+  colorOscuro = '#1a1a1a';
+  colorActual = this.colorClaro;
+  
+  // Slides con géneros musicales populares en Latinoamérica
   genres = [
     {
-      title: "Musica Clasica",
-      image: "https://tse2.mm.bing.net/th/id/OIP.TN1mkKRFHFjmvedS-gRMewHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
-      description: "Lorem ipsum is a placeholder or dummy text used in typesetting and graphic design for previewing layouts. It features scrambled Latin text, which emphasizes the design over content of the layout. It is the standard placeholder text of the printing and publishing industries. It does not have any meaningful content and is often used to fill spaces in design mockups."
+      title: "Reggaeton",
+      image: "assets/reggaeton.jpg",
+      description: "El género urbano que conquistó el mundo desde Puerto Rico. Con artistas como Bad Bunny, J Balvin y Daddy Yankee liderando las listas globales."
+    },
+    {
+      title: "Salsa",
+      image: "assets/salsa.jpg",
+      description: "La pasión del Caribe en cada compás. Ritmos vibrantes que hacen bailar a toda Latinoamérica con su sabor inconfundible."
+    },
+    {
+      title: "Bachata",
+      image: "assets/bachata.jpg",
+      description: "Romance dominicano que conquista corazones. La sensualidad y el amor se expresan en cada guitarra y cada verso de este género."
+    },
+    {
+      title: "Pop Latino",
+      image: "assets/pop-latino.jpg",
+      description: "La evolución moderna del sonido latino. Artistas como Shakira, Maluma y Karol G fusionan tradición con innovación musical."
     }
-  ]
-  constructor(private storageServcie: StorageService) {}
+  ];
+
+  constructor(private storageServcie: StorageService, private router: Router) {}
 
   async ngOnInit() {
     await this.loadStorageData();
@@ -53,11 +70,18 @@ export class HomePage implements OnInit {
   obtenerDatosSimudalos(){
     return new Promise((resolve, reject) =>{
       setTimeout(() =>{
-        resolve(['Rock', 'Pop', 'Jazz'])
+        resolve(['Reggaeton', 'Salsa', 'Bachata', 'Pop Latino'])
         //reject("hubo error al obtener los datos")
       }, 6000)
     })
   }
 
-  //crear una funcion para ir a ver la intro se va conectar con un boton que debomos agregar en el html y al hacer click ejecute esta funcion apra llevarma a ver la intro
+  // Función para ver la intro nuevamente
+  async verIntroNuevamente() {
+    // Borrar del Storage la variable que indica que ya se vio la intro
+    await this.storageServcie.remove('introSeen');
+    console.log('Intro reseteada - redirigiendo a la intro');
+    // Redirigir a la vista de introducción
+    this.router.navigateByUrl('/intro');
+  }
 }

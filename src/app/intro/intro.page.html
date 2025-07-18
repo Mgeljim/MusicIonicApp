@@ -1,10 +1,94 @@
-<ion-header >
+<ion-header [class.dark-theme]="isDarkTheme">
   <ion-toolbar>
-    <ion-title>intro</ion-title>
+    <ion-title>MusicApp - Introducción</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleTheme()" fill="clear">
+        <ion-icon [name]="isDarkTheme ? 'sunny' : 'moon'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-      <ion-title size="large">soy intro</ion-title>
-      <ion-button (click)="goBack()">Volver al Home</ion-button>
+<ion-content [class.dark-theme]="isDarkTheme" class="ion-padding">
+  
+  <!-- Slides dinámicos usando swiper-container -->
+  <swiper-container pagination="true" slides-per-view="1" space-between="20">
+    <swiper-slide *ngFor="let slide of slides; let i = index" [class.dark-slide]="isDarkTheme">
+      
+      <div class="slide-content ion-text-center ion-padding">
+        
+        <!-- Icono del slide -->
+        <div class="icon-container ion-margin-bottom">
+          <ion-icon 
+            [name]="slide.icon" 
+            [color]="slide.color"
+            size="large">
+          </ion-icon>
+        </div>
+        
+        <!-- Título principal -->
+        <ion-title 
+          size="large" 
+          [color]="slide.color"
+          class="ion-margin-bottom">
+          {{ slide.title }}
+        </ion-title>
+        
+        <!-- Subtítulo -->
+        <h3 class="ion-margin-bottom ion-color-medium">
+          {{ slide.subtitle }}
+        </h3>
+        
+        <!-- Contenido -->
+        <p class="slide-text ion-margin-bottom">
+          {{ slide.content }}
+        </p>
+        
+        <!-- Indicador de slide -->
+        <div class="slide-indicator ion-margin-top">
+          <span class="ion-color-medium">{{ i + 1 }} de {{ slides.length }}</span>
+        </div>
+        
+      </div>
+      
+    </swiper-slide>
+  </swiper-container>
+  
+  <!-- Botones de acción -->
+  <div class="action-buttons ion-padding ion-text-center">
+    
+    <!-- Botón para ir al Home -->
+    <ion-button 
+      expand="block" 
+      size="large"
+      color="primary"
+      class="ion-margin-bottom"
+      (click)="goToHome()">
+      <ion-icon name="home" slot="start"></ion-icon>
+      Ir al Home
+    </ion-button>
+    
+    <!-- Botón para resetear intro -->
+    <ion-button 
+      expand="block" 
+      fill="outline"
+      color="medium"
+      class="ion-margin-bottom"
+      (click)="resetIntro()">
+      <ion-icon name="refresh" slot="start"></ion-icon>
+      Ver Intro Nuevamente
+    </ion-button>
+    
+    <!-- Botón de volver (original) -->
+    <ion-button 
+      expand="block" 
+      fill="clear"
+      color="medium"
+      (click)="goBack()">
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
+      Volver
+    </ion-button>
+    
+  </div>
+  
 </ion-content>

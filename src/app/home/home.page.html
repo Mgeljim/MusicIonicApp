@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Home
+      Home - MusicApp
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <!-- Slides de géneros musicales -->
   <swiper-container
   pagination="true"
   loop="true"
@@ -20,56 +21,83 @@
     </div>
   </swiper-slide>
 </swiper-container>
-<div [style.background-color]="colorActual">
-  Hola mundo
+
+<!-- Sección de cambio de tema -->
+<div [style.background-color]="colorActual" class="ion-padding ion-margin">
+  <h3 class="ion-text-center">Tema Actual: {{ colorActual === colorOscuro ? 'Oscuro' : 'Claro'}}</h3>
 </div>
-<ion-button (click)="cambiarColor()">
-  Cambia de tema
-</ion-button>
-<ion-card class="bg-card-test">
+
+<!-- Botones de acción -->
+<div class="ion-padding">
+  
+  <!-- Botón para cambiar tema -->
+  <ion-button 
+    expand="block" 
+    color="primary"
+    class="ion-margin-bottom"
+    (click)="cambiarColor()">
+    <ion-icon name="color-palette" slot="start"></ion-icon>
+    Cambiar Tema
+  </ion-button>
+  
+  <!-- Botón para ver la intro nuevamente -->
+  <ion-button 
+    expand="block" 
+    color="secondary"
+    class="ion-margin-bottom"
+    (click)="verIntroNuevamente()">
+    <ion-icon name="play-circle" slot="start"></ion-icon>
+    Ver Introducción Nuevamente
+  </ion-button>
+  
+</div>
+
+<!-- Card de ejemplo -->
+<ion-card class="bg-card-test ion-margin">
   <ion-card-header>
-    <ion-card-title>Card Title</ion-card-title>
-    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    <ion-card-title>Bienvenido a MusicApp</ion-card-title>
+    <ion-card-subtitle>Tu plataforma musical favorita</ion-card-subtitle>
   </ion-card-header>
 
   <ion-card-content>
-    Here's a small text description for the card content. Nothing more, nothing less.
+    Explora millones de canciones, crea playlists personalizadas y disfruta de la mejor calidad de audio.
   </ion-card-content>
 </ion-card>
 
 <!-- Demo de Storage -->
- <div>
+ <div class="ion-padding">
     <h3>Demo Ionic Storage</h3>
-    <div [style.background-color]="colorActual">
-      <p>Team Actual: {{ colorActual === colorOscuro ? 'Oscuro' : 'Claro'}}</p>
+    <div [style.background-color]="colorActual" class="ion-padding ion-margin">
+      <p class="ion-text-center">Tema Actual: {{ colorActual === colorOscuro ? 'Oscuro' : 'Claro'}}</p>
     </div>
  </div>
 
- <div>
-    <ion-button (click)="cambiarColor()">Cambiar Team y Guardar</ion-button>
+ <!-- Ejemplos de CSS Utilities -->
+ <div class="ion-padding">
+  <h4>Ejemplos de CSS Utilities</h4>
+  <p class="ion-text-center ion-text-uppercase">Texto Centrado y Mayúsculas</p>
+  <p class="ion-text-left ion-text-lowercase">TEXTO A LA IZQUIERDA Y MINÚSCULAS</p>
+  <p class="ion-text-right ion-text-capitalize">texto a la derecha capitalizado</p>
+  <p class="ion-hide">Este texto está oculto</p>
+  <p class="d-block ion-margin ion-padding">Texto visible con márgenes y padding</p>
  </div>
-
- <div>
-  <p class="ion-text-center ion-text-uppercase">Texto Centrado</p>
-  <p class="ion-text-left ion-text-lowercase">TEXTO A LA IZQUIERDA</p>
-  <p class="ion-text-right ion-text-capitalize">texto a la derecha</p>
-  <p class="ion-hide">Hola no me veo</p>
-  <p class="d-block ion-margin ion-padding">Yo si me veo</p>
- </div>
- <ion-grid>
+ 
+ <!-- Grid de ejemplo -->
+ <ion-grid class="ion-padding">
   <ion-row>
     <ion-col class="ion-align-self-start">
-      <div>1 of 4</div>
+      <div class="ion-text-center ion-padding" style="background: #f0f0f0;">Inicio</div>
     </ion-col>
     <ion-col class="ion-align-self-center">
-      <div>2 of 4</div>
+      <div class="ion-text-center ion-padding" style="background: #e0e0e0;">Centro</div>
     </ion-col>
     <ion-col class="ion-align-self-end">
-      <div>3 of 4</div>
+      <div class="ion-text-center ion-padding" style="background: #d0d0d0;">Final</div>
     </ion-col>
     <ion-col>
-      <div>4 of 4 # # #</div>
+      <div class="ion-text-center ion-padding" style="background: #c0c0c0;">Columna 4</div>
     </ion-col>
   </ion-row>
 </ion-grid>
+
 </ion-content>

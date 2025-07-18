@@ -1,0 +1,131 @@
+// Estilos base para los slides
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  transition: all 0.3s ease;
+}
+
+.icon-container {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.slide-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.slide-indicator {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.action-buttons {
+  margin-top: 2rem;
+}
+
+// Tema claro (por defecto)
+ion-content {
+  --background: #ffffff;
+  --color: #000000;
+}
+
+ion-header {
+  --background: #3880ff;
+  --color: #ffffff;
+}
+
+swiper-slide {
+  --background: #f8f9fa;
+  --color: #333333;
+}
+
+// Tema oscuro
+ion-content.dark-theme {
+  --background: #1a1a1a;
+  --color: #ffffff;
+  
+  .slide-text {
+    color: #e0e0e0;
+  }
+  
+  .slide-indicator {
+    color: #b0b0b0;
+  }
+}
+
+ion-header.dark-theme {
+  --background: #2d2d2d;
+  --color: #ffffff;
+}
+
+swiper-slide.dark-slide {
+  --background: #2d2d2d;
+  --color: #ffffff;
+  
+  h3 {
+    color: #b0b0b0 !important;
+  }
+}
+
+// Animaciones para el cambio de tema
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Estilos responsivos
+@media (min-width: 768px) {
+  .slide-content {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .slide-text {
+    max-width: 400px;
+    font-size: 1.2rem;
+  }
+  
+  .icon-container {
+    font-size: 5rem;
+  }
+}
+
+// Estilos para los botones
+ion-button {
+  --border-radius: 12px;
+  font-weight: 500;
+}
+
+// Personalización de swiper
+swiper-container {
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+swiper-slide {
+  padding: 20px;
+  border-radius: 16px;
+  margin: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+// Indicadores de paginación para swiper
+swiper-container::part(pagination) {
+  bottom: 10px;
+}
+
+swiper-container::part(bullet) {
+  background: var(--ion-color-primary);
+  opacity: 0.5;
+}
+
+swiper-container::part(bullet-active) {
+  opacity: 1;
+  background: var(--ion-color-primary);
+}
+

@@ -1,0 +1,226 @@
+// Estilos para el registro (similar al login pero con ajustes)
+ion-content {
+  --background: linear-gradient(135deg, #66baea 0%, #4b98a2 100%);
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 40px;
+}
+
+.profile-default-image {
+  margin: 30px 0;
+  
+  p {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  img {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+form {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 25px 20px;
+  margin: 15px 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  margin-bottom: 8px;
+  
+  ion-input {
+    --background: rgba(248, 250, 252, 0.8);
+    --color: #334155;
+    --placeholder-color: #94a3b8;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    border-radius: 12px;
+    border: 2px solid rgba(226, 232, 240, 0.5);
+    transition: all 0.3s ease;
+    font-size: 16px;
+    
+    &:focus-within {
+      --background: white;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.validation-errors {
+  margin-bottom: 12px;
+  min-height: 18px;
+  
+  .error-message {
+    color: #ef4444;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #ef4444;
+    margin-top: 4px;
+    animation: slideIn 0.3s ease;
+  }
+}
+
+ion-button {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --background-activated: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  --background-hover: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  --color: white;
+  --border-radius: 12px;
+  --box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  
+  &:not([disabled]):hover {
+    transform: translateY(-2px);
+    --box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+  }
+  
+  &[disabled] {
+    --background: #cbd5e1;
+    --color: #94a3b8;
+    --box-shadow: none;
+  }
+}
+
+// Mensaje de error general
+.error-message-general {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid #ef4444;
+  margin: 15px 0;
+  font-weight: 500;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+// Mensaje de éxito
+.success-message-general {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid #10b981;
+  margin: 15px 0;
+  font-weight: 500;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+// Enlace para login
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  
+  p {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  ion-button {
+    --color: white;
+    --background: transparent;
+    --background-hover: rgba(255, 255, 255, 0.1);
+    --background-activated: rgba(255, 255, 255, 0.2);
+    --border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Animaciones
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  ion-content {
+    --padding-start: 15px;
+    --padding-end: 15px;
+    --padding-top: 20px;
+  }
+  
+  form {
+    margin: 10px 0;
+    padding: 20px 15px;
+  }
+  
+  .profile-default-image {
+    margin: 20px 0;
+    
+    img {
+      height: 80px;
+      width: 80px;
+    }
+    
+    p {
+      font-size: 20px;
+    }
+  }
+}
+
+// Header personalizado
+ion-header {
+  ion-toolbar {
+    --background: transparent;
+    --color: white;
+    
+    ion-title {
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+    }
+  }
+}
+

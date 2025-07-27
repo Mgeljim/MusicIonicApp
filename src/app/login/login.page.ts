@@ -9,7 +9,8 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule],
+  providers: [FormBuilder]
 })
 export class LoginPage implements OnInit {
   //[tarea]: Crear un nuevo guard para cuando intente entrar al home validar si estoy logeada si no redireccionar a login
@@ -63,10 +64,14 @@ export class LoginPage implements OnInit {
     console.log(credentials)
     this.authService.loginUser(credentials).then(res => {
       this.errorMessage = "";
-      this.navCtrl.navigateForward("/home")
+      this.navCtrl.navigateForward("/intro")
     }).catch(error =>{
       this.errorMessage = error;
     })
+  }
+
+  goToRegister(){
+    this.navCtrl.navigateForward("/register");
   }
 
 }

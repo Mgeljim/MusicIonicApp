@@ -34,4 +34,22 @@ export class AuthService {
   async logout(): Promise<void> {
     await this.storageService.remove('login');
   }
+
+  // Método para registrar usuario
+  async registerUser(userData: any) {
+    return new Promise(async (accept, reject) => {
+      try {
+        // Simular validación del registro
+        if (userData.nombre && userData.apellido && userData.email && userData.password) {
+          // Guardar los datos del usuario en el storage
+          await this.storageService.set('userData', userData);
+          accept("Registro exitoso");
+        } else {
+          reject("Todos los campos son obligatorios");
+        }
+      } catch (error) {
+        reject("Error en el registro");
+      }
+    });
+  }
 }

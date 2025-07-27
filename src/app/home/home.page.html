@@ -1,8 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Home - MusicApp
+      Noryx
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button expand="block" color="danger" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -48,6 +53,16 @@
     (click)="verIntroNuevamente()">
     <ion-icon name="play-circle" slot="start"></ion-icon>
     Ver Introducción Nuevamente
+  </ion-button>
+  
+  <!-- Botón para cerrar sesión -->
+  <ion-button 
+    expand="block" 
+    color="danger"
+    class="ion-margin-bottom"
+    (click)="logout()">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    Cerrar Sesión
   </ion-button>
   
 </div>

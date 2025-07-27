@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular'
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { StorageService } from '../services/storage.service';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -41,7 +42,11 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private storageServcie: StorageService, private router: Router) {}
+  constructor(
+    private storageServcie: StorageService, 
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   async ngOnInit() {
     await this.loadStorageData();
@@ -83,5 +88,18 @@ export class HomePage implements OnInit {
     console.log('Intro reseteada - redirigiendo a la intro');
     // Redirigir a la vista de introducción
     this.router.navigateByUrl('/intro');
+  }
+
+  // Función para cerrar sesión
+  async logout() {
+    try {
+      // Llamar al método logout del servicio de autenticación
+      await this.authService.logout();
+      console.log('Sesión cerrada exitosamente');
+      // Redirigir al login
+      this.router.navigateByUrl('/login');
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
   }
 }

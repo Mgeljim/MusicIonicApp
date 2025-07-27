@@ -185,3 +185,31 @@ ion-header {
   }
 }
 
+// Enlace para registro
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  
+  p {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  ion-button {
+    --color: white;
+    --background: transparent;
+    --background-hover: rgba(255, 255, 255, 0.1);
+    --background-activated: rgba(255, 255, 255, 0.2);
+    --border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+

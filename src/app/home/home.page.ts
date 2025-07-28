@@ -17,9 +17,8 @@ import { MusicPlayerComponent } from '../music-player/music-player.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage implements OnInit {
-  colorClaro = '#ffffff';
-  colorOscuro = '#1a1a1a';
-  colorActual = this.colorClaro;
+  // Variables para el tema
+  isDarkTheme = false;
   
   // Slides con géneros musicales populares en Latinoamérica
   genres = [
@@ -56,23 +55,25 @@ export class HomePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.loadStorageData();
+    await this.loadTheme();
     this.simularCargaDatos();
     // Cargar artistas al inicializar la página
     await this.loadArtists();
   }
 
-  async cambiarColor(){ 
-    //if ternario
-    this.colorActual = this.colorActual === this.colorOscuro ? this.colorClaro : this.colorOscuro
-    await this.storageServcie.set('theme', this.colorActual)
-    console.log('Tema Guardado: ', this.colorActual )
+  // Cambiar tema
+  async toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+    await this.storageServcie.set('darkTheme', this.isDarkTheme);
+    document.body.classList.toggle('dark', this.isDarkTheme);
+    console.log('Tema Guardado: ', this.isDarkTheme ? 'Oscuro' : 'Claro');
   }
 
-  async loadStorageData(){
-    const savedTheme = await this.storageServcie.get('theme');
-    if (savedTheme) {
-      this.colorActual = savedTheme;
+  async loadTheme(){
+    const savedTheme = await this.storageServcie.get('darkTheme');
+    if (savedTheme !== null) {
+      this.isDarkTheme = savedTheme;
+      document.body.classList.toggle('dark', this.isDarkTheme);
     }
   }
 
@@ -211,7 +212,7 @@ export class HomePage implements OnInit {
         await this.viewFavorites();
         break;
       case "theme":
-        await this.cambiarColor();
+        await this.toggleTheme();
         break;
       case "intro":
         await this.verIntroNuevamente();

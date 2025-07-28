@@ -1,0 +1,34 @@
+<ion-content class="splash-container" [fullscreen]="true">
+  <div class="splash-content">
+    <!-- Logo principal -->
+    <div class="logo-container" [class.animate-logo]="showLogo">
+      <img 
+        src="assets/images/icon.jpg" 
+        alt="Noryx Logo" 
+        class="main-logo"
+        [class.logo-visible]="showLogo"
+      />
+    </div>
+    
+    <!-- Texto del logo con animación épica -->
+    <div class="text-container" [class.animate-text]="showText">
+      <div class="letter-container">
+        <span class="letter letter-n" [class.letter-visible]="showText">N</span>
+        <span class="letter letter-o" [class.letter-visible]="showText">O</span>
+        <span class="letter letter-r" [class.letter-visible]="showText">R</span>
+        <span class="letter letter-y" [class.letter-visible]="showText">Y</span>
+        <span class="letter letter-x" [class.letter-visible]="showText">X</span>
+      </div>
+    </div>
+    
+    <!-- Efectos de partículas -->
+    <div class="particles-container" [class.particles-active]="showParticles">
+      <div class="particle" *ngFor="let particle of particles; let i = index" 
+           [style.left.px]="particle.x" 
+           [style.top.px]="particle.y"
+           [style.animation-delay.ms]="particle.delay">
+      </div>
+    </div>
+  </div>
+</ion-content>
+

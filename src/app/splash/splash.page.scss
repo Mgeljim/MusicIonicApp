@@ -1,0 +1,219 @@
+.splash-container {
+  --background: linear-gradient(135deg, #6200ff 0%, #6200ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+/* Logo principal */
+.logo-container {
+  /* Eliminado margin-bottom: 40px; para mejor centrado */
+  transform: scale(0) rotate(180deg);
+  opacity: 0;
+  transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.logo-container.animate-logo {
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+}
+
+.main-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+  transition: all 0.8s ease;
+}
+
+.main-logo.logo-visible {
+  animation: logoGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+  0% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+    transform: scale(1);
+  }
+  100% {
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+    transform: scale(1.05);
+  }
+}
+
+/* Contenedor de texto */
+.text-container {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease 0.5s;
+  margin-top: 20px; /* Añadir un margen superior para separar del logo */
+}
+
+.text-container.animate-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.letter-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.letter {
+  font-size: 48px;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(100px) rotateX(90deg);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: inline-block;
+}
+
+.letter.letter-visible {
+  transform: translateY(0) rotateX(0deg);
+  opacity: 1;
+}
+
+/* Animaciones escalonadas para cada letra */
+.letter-n.letter-visible {
+  animation: letterBounce 1.5s ease 0.1s both, letterGlow 2s ease 1.6s infinite alternate;
+}
+
+.letter-o.letter-visible {
+  animation: letterBounce 1.5s ease 0.2s both, letterGlow 2s ease 1.7s infinite alternate;
+}
+
+.letter-r.letter-visible {
+  animation: letterBounce 1.5s ease 0.3s both, letterGlow 2s ease 1.8s infinite alternate;
+}
+
+.letter-y.letter-visible {
+  animation: letterBounce 1.5s ease 0.4s both, letterGlow 2s ease 1.9s infinite alternate;
+}
+
+.letter-x.letter-visible {
+  animation: letterBounce 1.5s ease 0.5s both, letterGlow 2s ease 2s infinite alternate;
+}
+
+@keyframes letterBounce {
+  0% {
+    transform: translateY(100px) rotateX(90deg) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-20px) rotateX(0deg) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes letterGlow {
+  0% {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+  }
+  100% {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.8);
+    color: #f0f8ff;
+  }
+}
+
+/* Efectos de partículas */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease 2s;
+}
+
+.particles-container.particles-active {
+  opacity: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  animation: particleFloat 3s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Efectos adicionales para dispositivos móviles */
+@media (max-width: 768px) {
+  .main-logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .letter {
+    font-size: 36px;
+  }
+  
+  .letter-container {
+    gap: 6px;
+  }
+}
+
+/* Animación de salida */
+.splash-container.fade-out {
+  animation: fadeOut 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+

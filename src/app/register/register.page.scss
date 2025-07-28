@@ -1,6 +1,6 @@
 // Estilos para el registro (similar al login pero con ajustes)
 ion-content {
-  --background: linear-gradient(135deg, #66baea 0%, #4b98a2 100%);
+  --background: linear-gradient(135deg, #6200ff 0%, #6200ff 100%);
   --padding-start: 20px;
   --padding-end: 20px;
   --padding-top: 40px;
@@ -98,6 +98,9 @@ ion-button {
   --box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
   --padding-top: 16px;
   --padding-bottom: 16px;
+  --ion-color-success: #6200ff;
+  --ion-color-success-contrast: white;
+  --ion-color-success-shade: #6200ff;
   margin-top: 15px;
   font-size: 18px;
   font-weight: 600;
@@ -132,11 +135,11 @@ ion-button {
 
 // Mensaje de éxito
 .success-message-general {
-  color: #10b981;
+  color: #6200ff;
   background: rgba(16, 185, 129, 0.1);
   padding: 12px 16px;
   border-radius: 8px;
-  border-left: 4px solid #10b981;
+  border-left: 4px solid #6200ff;
   margin: 15px 0;
   font-weight: 500;
   text-align: center;

@@ -5,7 +5,7 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class AuthService {
-  urlServer = "http://music.fly.dev";
+  urlServer = "https://music.fly.dev";
 
   constructor(private storageService: StorageService) {}
 
@@ -16,35 +16,62 @@ export class AuthService {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ user: { ...credentials } })
+        body: JSON.stringify({
+          user: {
+            email: credentials.email,
+            password: credentials.password
+          }
+        })
       });
 
       const data = await response.json();
 
-      // [tarea]: si el login es exitoso guardar en el storage "login: true"
-      if (response.ok && data?.token) {
+      if (response.ok) {
+        // Guardar estado de login y datos del usuario
         await this.storageService.set('login', true);
-        await this.storageService.set('userToken', data.token); // opcional
+        if (data.token) {
+          await this.storageService.set('userToken', data.token);
+        }
+        if (data.user) {
+          await this.storageService.set('userData', data.user);
+        }
+        return { success: true, data: data };
+      } else {
+        throw data.error || 'Error en el login';
       }
-
-      return data;
     } catch (error) {
       console.error('Login error:', error);
       throw error;
     }
   }
 
-  async register(data: any): Promise<any> {
+  async registerUser(userData: any): Promise<any> {
     try {
+      // Mapear los campos del formulario a los esperados por la API
+      const userPayload = {
+        user: {
+          email: userData.email,
+          password: userData.password,
+          name: `${userData.nombre} ${userData.apellido}`,
+          username: userData.email.split('@')[0] // Usar la parte antes del @ como username
+        }
+      };
+
       const response = await fetch(`${this.urlServer}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ user: { ...data } })
+        body: JSON.stringify(userPayload)
       });
 
-      return await response.json();
+      const data = await response.json();
+
+      if (response.ok) {
+        return { success: true, message: 'Registro exitoso', data: data };
+      } else {
+        throw data.error || 'Error en el registro';
+      }
     } catch (error) {
       console.error('Register error:', error);
       throw error;
@@ -57,22 +84,33 @@ export class AuthService {
   }
 
   async logout(): Promise<void> {
-    await this.storageService.remove('login');
-    await this.storageService.remove('userToken'); // opcional
+    try {
+      // Intentar hacer logout en el servidor
+      const token = await this.storageService.get('userToken');
+      if (token) {
+        await fetch(`${this.urlServer}/logout`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      // Limpiar storage local independientemente del resultado del servidor
+      await this.storageService.remove('login');
+      await this.storageService.remove('userToken');
+      await this.storageService.remove('userData');
+    }
   }
 
-  async registerUser(userData: any) {
-    return new Promise(async (accept, reject) => {
-      try {
-        if (userData.nombre && userData.apellido && userData.email && userData.password) {
-          await this.storageService.set('userData', userData);
-          accept("Registro exitoso");
-        } else {
-          reject("Todos los campos son obligatorios");
-        }
-      } catch (error) {
-        reject("Error en el registro");
-      }
-    });
+  async getCurrentUser(): Promise<any> {
+    return await this.storageService.get('userData');
+  }
+
+  async getToken(): Promise<string | null> {
+    return await this.storageService.get('userToken');
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { IonicModule, NavController } from '@ionic/angular';
+import { IonicModule, NavController, LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class RegisterPage implements OnInit {
   registerForm: FormGroup;
   errorMessage: string = "";
   successMessage: string = "";
+  isLoading: boolean = false;
 
   // Mensajes de validación para todos los campos
   validation_messages = {
@@ -55,9 +56,6 @@ export class RegisterPage implements OnInit {
       },
       {
         type: "minlength", message: "La contraseña debe tener al menos 6 caracteres."
-      },
-      {
-        type: "pattern", message: "La contraseña debe contener al menos una letra mayúscula, una minúscula y un número."
       }
     ]
   }
@@ -65,7 +63,9 @@ export class RegisterPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     private authService: AuthService, 
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private loadingController: LoadingController,
+    private alertController: AlertController
   ) {
     this.registerForm = this.formBuilder.group({
       nombre: new FormControl(
@@ -95,8 +95,7 @@ export class RegisterPage implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(6),
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d@$!%*?&]+$')
+          Validators.minLength(6)
         ])
       )
     });
@@ -105,25 +104,67 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  registerUser(userData: any) {
-    console.log('Datos de registro:', userData);
-    this.authService.registerUser(userData).then(res => {
+  async registerUser(userData: any) {
+    if (this.registerForm.valid) {
+      this.isLoading = true;
       this.errorMessage = "";
-      this.successMessage = "Registro exitoso. Redirigiendo al login...";
-      
-      // Esperar 2 segundos antes de navegar al login
-      setTimeout(() => {
-        this.navCtrl.navigateForward("/login");
-      }, 2000);
-      
-    }).catch(error => {
       this.successMessage = "";
-      this.errorMessage = error;
-    });
+
+      const loading = await this.loadingController.create({
+        message: 'Registrando usuario...',
+        spinner: 'crescent'
+      });
+      await loading.present();
+
+      try {
+        const result = await this.authService.registerUser(userData);
+        
+        if (result.success) {
+          await loading.dismiss();
+          this.isLoading = false;
+          
+          // Mostrar mensaje de éxito
+          const alert = await this.alertController.create({
+            header: 'Registro Exitoso',
+            message: 'Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión.',
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.navCtrl.navigateBack("/login");
+                }
+              }
+            ]
+          });
+          await alert.present();
+        }
+      } catch (error: any) {
+        await loading.dismiss();
+        this.isLoading = false;
+        
+        // Manejar diferentes tipos de errores
+        if (typeof error === 'string') {
+          this.errorMessage = error;
+        } else if (error.message) {
+          this.errorMessage = error.message;
+        } else {
+          this.errorMessage = "Error de conexión. Verifica tu internet e intenta nuevamente.";
+        }
+
+        // Mostrar alerta de error
+        const alert = await this.alertController.create({
+          header: 'Error de Registro',
+          message: this.errorMessage,
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    } else {
+      this.errorMessage = "Por favor, completa todos los campos correctamente.";
+    }
   }
 
   goToLogin() {
     this.navCtrl.navigateBack("/login");
   }
 }
-

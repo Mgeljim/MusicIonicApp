@@ -5,43 +5,66 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class AuthService {
+  urlServer = "http://music.fly.dev";
 
-  constructor(private storageService: StorageService) { }
+  constructor(private storageService: StorageService) {}
 
-  async loginUser(credentials: any){
-    //[tarea]: si el login es exito guardar en el storage "login:true"
-    return new Promise(async (accept, reject) =>{
-      if (
-        credentials.email == "mgeljim@gmail.com" &&
-        credentials.password == "Qwerty123"
-      ){
-        // Guardar en el storage que el usuario está logueado
+  async loginUser(credentials: any): Promise<any> {
+    try {
+      const response = await fetch(`${this.urlServer}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user: { ...credentials } })
+      });
+
+      const data = await response.json();
+
+      // [tarea]: si el login es exitoso guardar en el storage "login: true"
+      if (response.ok && data?.token) {
         await this.storageService.set('login', true);
-        accept("login correcto")
-      }else{
-        reject("login incorrecto")
+        await this.storageService.set('userToken', data.token); // opcional
       }
-    })
+
+      return data;
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
   }
 
-  // Método para verificar si el usuario está logueado
+  async register(data: any): Promise<any> {
+    try {
+      const response = await fetch(`${this.urlServer}/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user: { ...data } })
+      });
+
+      return await response.json();
+    } catch (error) {
+      console.error('Register error:', error);
+      throw error;
+    }
+  }
+
   async isLoggedIn(): Promise<boolean> {
     const loginStatus = await this.storageService.get('login');
     return loginStatus === true;
   }
 
-  // Método para cerrar sesión
   async logout(): Promise<void> {
     await this.storageService.remove('login');
+    await this.storageService.remove('userToken'); // opcional
   }
 
-  // Método para registrar usuario
   async registerUser(userData: any) {
     return new Promise(async (accept, reject) => {
       try {
-        // Simular validación del registro
         if (userData.nombre && userData.apellido && userData.email && userData.password) {
-          // Guardar los datos del usuario en el storage
           await this.storageService.set('userData', userData);
           accept("Registro exitoso");
         } else {

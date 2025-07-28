@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Canciones de {{ artistName }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let song of songs; index as i">
+      <ion-avatar slot="start">
+        <div class="song-number">{{ i + 1 }}</div>
+      </ion-avatar>
+      
+      <ion-label>
+        <h2>{{ song.name }}</h2>
+        <p *ngIf="song.album">{{ song.album.name }}</p>
+        <p *ngIf="song.duration_ms">{{ (song.duration_ms / 60000) | number:'1.0-0' }}:{{ ((song.duration_ms % 60000) / 1000) | number:'2.0-0' }}</p>
+      </ion-label>
+
+      <ion-button 
+        slot="end" 
+        fill="clear" 
+        (click)="toggleFavorite(song)"
+        [color]="favoriteStates[song.id] ? 'danger' : 'medium'">
+        <ion-icon 
+          [name]="favoriteStates[song.id] ? 'heart' : 'heart-outline'" 
+          slot="icon-only">
+        </ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje cuando no hay canciones -->
+  <div *ngIf="songs.length === 0" class="no-songs-message">
+    <ion-card>
+      <ion-card-content class="ion-text-center">
+        <ion-icon name="musical-notes-outline" size="large"></ion-icon>
+        <h3>No hay canciones disponibles</h3>
+        <p>Este artista no tiene canciones en la base de datos.</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+

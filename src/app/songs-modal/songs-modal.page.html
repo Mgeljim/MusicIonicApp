@@ -22,6 +22,16 @@
         <p *ngIf="song.duration_ms">{{ (song.duration_ms / 60000) | number:'1.0-0' }}:{{ ((song.duration_ms % 60000) / 1000) | number:'2.0-0' }}</p>
       </ion-label>
 
+      <!-- Botón de reproducir -->
+      <ion-button 
+        slot="end" 
+        fill="clear" 
+        (click)="playSong(song)"
+        color="primary">
+        <ion-icon name="play" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <!-- Botón de favorito -->
       <ion-button 
         slot="end" 
         fill="clear" 

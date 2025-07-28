@@ -7,12 +7,13 @@ import { AuthService } from '../services/auth.service';
 import { MusicService } from '../services/music.service';
 import { Router } from '@angular/router';
 import { SongsModalPage } from '../songs-modal/songs-modal.page';
+import { MusicPlayerComponent } from '../music-player/music-player.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule, MusicPlayerComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage implements OnInit {
